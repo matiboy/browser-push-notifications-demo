@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/app.css">
+        <link rel="manifest" href="/static/manifest.json">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-sanitize.min.js"></script>
+        <script src="/static/vendor/bower/angular-browser-push-notifications/dist/angular-browser-push-notifications.js"></script>
+        <script src="/static/vendor/bower/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="/static/app.js"></script>
+    </head>
+    <body ng-app="notificationsApp">
+        <div id="header">
+            <div class="container">
+                <h1>Browser Push Notifications</h1>
+                <p>Test Chrome (v42 and above) browser push notifications</p>
+                <div class="pull-right hidden-xs some-credit">
+                    Powered by
+                    <a href="http://redapesolutions.com">
+                        <img src="/static/icon-192x192.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div ng-controller="StatusController" class="container">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <p id="status" ng-class="{'gly-spin': progress !== 10}">
+                        <i class="glyphicon glyphicon-refresh" ng-class="{'glyphicon-ok-circle': progress === 10 && !error}"></i><span ng-bind="status"></span>
+                    </p>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <p class="count">{{ count }} <span class="really-small">notifications served</span></p>
+                </div>
+            </div>
+            <div class="row" ng-show="error">
+                <div class="col-sm-6 col-xs-12 checklist">
+                    <div ng-show="progress>1">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        Workers supported
+                    </div>
+                    <div ng-show="progress>2">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        Worker successfully registered
+                    </div>
+                    <div ng-show="progress>3">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        Notifications are supported
+                    </div>
+                    <div ng-show="progress>4">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        Push is supported
+                    </div>
+                    <div ng-show="progress>5">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        Thank you for not blocking notifications
+                    </div>
+                    <div ng-show="status">
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                        <span ng-bind-html="error"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="subscriptionId">
+                <div class="col-xs-12">
+                    <form>
+                        <div class="form-group">
+                            <label for="subscription-id">Subscription id</label>
+                            <textarea class="form-control" id="subscription-id" ng-model="subscriptionId"></textarea>
+                            <p class="help-block">This is your device token. Paste another device's token to send to that instead</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Message content</label>
+                            <input class="form-control" type="text" ng-model="notification.text" placeholder="Say hi!">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label>Automatically hide notification after</label><br>
+                                    <div class="btn-group">
+                                        <label ng-repeat="opt in removeOptions" class="btn btn-info" ng-model="notification.removeAfter" btn-radio="opt.value" ng-bind="opt.name"></label>
+                                    </div>
+                                    <p class="help-block">Notification will be hidden after this duration. Probably not very useful on mobile.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label>Delay message by</label>
+                                    <div class="input-group">
+                                        <input class="form-control" ng-model="notification.sendAfter" type="number">
+                                        <div class="input-group-addon">seconds</div>
+                                    </div>
+                                    <p class="help-block">Gives you time to quit Chrome on mobile, or close the tab on desktop. The delay will be handled on server side</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="button-wrapper">
+                            <button ng-click="send()" class="btn btn-success btn-lg gly-spin" ng-class="{'disabled': sending}"><i class="glyphicon glyphicon-refresh"></i> Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="visible-xs-block some-credit">
+                        Powered by
+                        <a href="http://redapesolutions.com">
+                            <img src="/static/icon-192x192.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

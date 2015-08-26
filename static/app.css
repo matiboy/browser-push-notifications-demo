@@ -1,0 +1,110 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.some-credit {
+  width: 70px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 0.7em;
+}
+
+.some-credit img {
+  width: 100%;
+}
+
+#header {
+  background-color: maroon;
+  color: white;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.count {
+  font-size: 3em;
+}
+
+.really-small {
+  font-size: 0.3em;
+}
+
+.checklist div {
+  line-height: 40px;
+  vertical-align: middle;
+}
+
+.checklist div i.glyphicon-remove-circle {
+  color: red;
+}
+
+.checklist div i {
+  color: green;
+  font-size: 1.5em;
+  vertical-align: text-bottom;
+}
+
+#status {
+  font-size: 3em;
+}
+
+#status i {
+  font-size: 0.7em;
+  margin-right: 7px;
+}
+
+#status i.glyphicon-ok-circle {
+  color: green;
+}
+
+#button-wrapper {
+  text-align: center;
+}
+
+#button-wrapper button i {
+  display: none;
+}
+#button-wrapper button.disabled i {
+  display: inline-block;
+}
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.gly-spin i {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+

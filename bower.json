@@ -1,0 +1,25 @@
+{
+  "name": "browser-push-notifications-demo",
+  "version": "0.0.1",
+  "homepage": "https://github.com/matiboy/browser-push-notifications-demo",
+  "authors": [
+    "matiboy <mathieu.chauvinc@gmail.com>"
+  ],
+  "description": "Demo for browser push notifications",
+  "keywords": [
+    "push",
+    "notifications",
+    "chrome"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-browser-push-notifications": "~0.1.0"
+  }
+}
