@@ -9,6 +9,7 @@
         <script src="/static/vendor/bower/angular-browser-push-notifications/dist/angular-browser-push-notifications.js"></script>
         <script src="/static/vendor/bower/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <script src="/static/app.js"></script>
+        <title>Browser Push Notifications</title>
     </head>
     <body ng-app="notificationsApp">
         <div id="header">
@@ -26,8 +27,8 @@
         <div ng-controller="StatusController" class="container">
             <div class="row">
                 <div class="col-sm-4 col-xs-12">
-                    <p id="status" ng-class="{'gly-spin': progress !== 10}">
-                        <i class="glyphicon glyphicon-refresh" ng-class="{'glyphicon-ok-circle': progress === 10 && !error}"></i><span ng-bind="status"></span>
+                    <p id="status" ng-class="{'gly-spin': load_status===0}">
+                        <i class="glyphicon glyphicon-refresh" ng-class="{'glyphicon-ok-circle': load_status===1,'glyphicon-remove-circle': load_status===-1}"></i><span ng-bind="status"></span>
                     </p>
                 </div>
                 <div class="col-sm-4 col-xs-6" style="text-align: center; border-right: solid 1px lightgray;">

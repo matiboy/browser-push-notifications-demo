@@ -1,10 +1,13 @@
 angular.module('notificationsApp', ['browserPushNotifications', 'ngSanitize', 'ui.bootstrap']).controller('StatusController', function($scope, BrowserPushNotifications, $http, BrowserPushNotificationsStatus){
 $scope.status = 'Working';
+$scope.load_status = 0;
 BrowserPushNotifications.getSubscriptionId().then(function(subscription) {
     $scope.progress = 10;
+    $scope.load_status = 1;
     $scope.status = 'Registered!';
     $scope.subscriptionId = subscription;
   }, function(err) {
+    $scope.load_status = -1;
     if(err === BrowserPushNotificationsStatus.FAILED_TO_SUBSCRIBE) {
       $scope.progress = 5;
       $scope.error = 'Subscription failed - the sender id in the manifest might be wrong';
@@ -23,6 +26,7 @@ BrowserPushNotifications.getSubscriptionId().then(function(subscription) {
     } else {
       $scope.error = 'Error ' + err;
     }
+    $scope.status = 'Failed!';
   });
   $scope.removeOptions = [
       {name: '5 seconds', value: 5},
