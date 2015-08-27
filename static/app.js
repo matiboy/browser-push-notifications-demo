@@ -26,7 +26,7 @@ BrowserPushNotifications.getSubscriptionId().then(function(subscription) {
   });
   $scope.removeOptions = [
       {name: '5 seconds', value: 5},
-      {name: '1 minute', value: 60},
+      {name: '20 seconds', value: 20},
       {name: "Don't hide", value: null},
   ];
   $scope.notification = {

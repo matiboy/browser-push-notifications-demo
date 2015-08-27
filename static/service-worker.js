@@ -3,17 +3,19 @@
 self.addEventListener('push', function(event) {
   console.log('Received a push message', event);
   var title = 'Anacondapp';
-  var icon = '/static/images/icon-192x192.png';
+  var icon = '/static/icon-192x192.png';
   var tag = 'anacondapp'+Date.now();
+  var closeAfter;
 
   var notificationPromise = event.currentTarget.registration.pushManager.getSubscription().then(function(sub) {
         var id = sub.endpoint.split('/').pop();
-        return fetch('/communications/details?token='+id);
+        return fetch('/details?token='+id);
       }).then(function(response){
-        return response.text();
-      }).then(function(body) {
+        return response.json();
+      }).then(function(data) {
+        closeAfter = data.remove;
         return self.registration.showNotification(title, {
-          body: body,
+          body: data.text,
           icon: icon,
           tag: tag
         });
@@ -21,8 +23,12 @@ self.addEventListener('push', function(event) {
 
   event.waitUntil(notificationPromise);
   notificationPromise.then(function() {
+    if(!closeAfter) {
+      return Promise.reject();
+    }
+    console.log('Attempting to close after '+closeAfter+' seconds');
     return new Promise(function(resolve){
-      setTimeout(resolve, 5000)
+      setTimeout(resolve, closeAfter * 1000);
     });
   }).then(function() {
     return event.currentTarget.registration.getNotifications();
@@ -46,16 +52,21 @@ self.addEventListener('notificationclick', function(event) {
 
   // This looks to see if the current is already open and
   // focuses if it is
-  event.waitUntil(clients.matchAll({
-    type: "window"
-  }).then(function(clientList) {
-    for (var i = 0; i < clientList.length; i++) {
-      var client = clientList[i];
-      if (client.url == '/' && 'focus' in client)
-        return client.focus();
-    }
-    if (clients.openWindow)
-      return clients.openWindow('/');
-  }));
-
+  event.waitUntil(clients.matchAll()
+    .then(function(clientList) {
+      for (var i = 0; i < clientList.length; i++) {
+        var client = clientList[i];
+        var url = client.url;
+        var noProtocol = client.url.split('//');
+        if(noProtocol.length) {
+          url = noProtocol.split('/').slice(1).join('/');
+        }
+        console.log(url);
+        if (url == '/' && 'focus' in client)
+          return client.focus();
+      }
+      if (clients.openWindow)
+        return clients.openWindow('/');
+    })
+  );
 });
