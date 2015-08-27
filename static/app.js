@@ -35,12 +35,13 @@ BrowserPushNotifications.getSubscriptionId().then(function(subscription) {
       sendAfter: 0
   };
   $scope.send = function() {
+    $scope.status = 'Sending...';
     $scope.sending = true;
     $http.post('/send', {
         token: $scope.subscriptionId,
         text: $scope.notification.text,
         removeAfter: $scope.notification.removeAfter,
-        sendAfter: Math.min(40, $scope.notification.sendAfter),
+        sendAfter: $scope.notification.sendAfter,
     }).then(function() {
       $scope.sending = false;
       $scope.status = 'Sent';

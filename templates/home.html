@@ -25,12 +25,16 @@
         </div>
         <div ng-controller="StatusController" class="container">
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-4 col-xs-12">
                     <p id="status" ng-class="{'gly-spin': progress !== 10}">
                         <i class="glyphicon glyphicon-refresh" ng-class="{'glyphicon-ok-circle': progress === 10 && !error}"></i><span ng-bind="status"></span>
                     </p>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-4 col-xs-6" style="text-align: center; border-right: solid 1px lightgray;">
+                    <p>Using <a href="https://angularjs.org/"><img width="60" src="/static/angularjs.png"></a> and <a href="https://github.com/matiboy/angular-browser-push-notifications">Angular Browser Push</a>
+                    </p>
+                </div>
+                <div class="col-sm-4 col-xs-6" style="text-align: right;">
                     <p class="count">{{ count }} <span class="really-small">notifications served</span></p>
                 </div>
             </div>
@@ -70,6 +74,7 @@
                             <textarea class="form-control" id="subscription-id" ng-model="subscriptionId"></textarea>
                             <p class="help-block">This is your device token. Paste another device's token to send to that instead</p>
                         </div>
+                        <h2>Send a message!</h2>
                         <div class="form-group">
                             <label>Message content</label>
                             <input class="form-control" type="text" ng-model="notification.text" placeholder="Say hi!">
@@ -91,7 +96,7 @@
                                         <input class="form-control" ng-model="notification.sendAfter" type="number">
                                         <div class="input-group-addon">seconds</div>
                                     </div>
-                                    <p class="help-block">Gives you time to quit Chrome on mobile, or close the tab on desktop. The delay will be handled on server side</p>
+                                    <p class="help-block">Gives you time to kill Chrome on mobile, or close the tab on desktop. The delay will be handled on server side</p>
                                 </div>
                             </div>
                         </div>
