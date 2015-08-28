@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-browser-push-notifications": "~0.1.0"
+    "angular-browser-push-notifications": ">=0.1.1"
   }
 }
